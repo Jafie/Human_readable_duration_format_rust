@@ -79,3 +79,25 @@ fn main() -> Result<(), std::io::Error>{
 
     Ok(())
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_nominal() {
+        assert_eq!(format_duration(598456823), "18 years, 11 months, 26 days, 14 hours and 23 seconds");
+        assert_eq!(format_duration(11898156), "4 months, 17 days, 17 hours, 2 minutes and 36 seconds");
+        assert_eq!(format_duration(1898156), "21 days, 23 hours, 15 minutes and 56 seconds");
+        assert_eq!(format_duration(3601), "1 hour and 1 second");
+        assert_eq!(format_duration(8956), "2 hours, 29 minutes and 16 seconds");
+        assert_eq!(format_duration(60), "1 minute");
+        assert_eq!(format_duration(5151591263), "163 years, 4 months, 9 days, 21 hours, 34 minutes and 23 seconds");
+    }
+
+    #[test]
+    fn test_special_case() {
+        assert_eq!(format_duration(60), "1 minute");
+        assert_eq!(format_duration(0), "now");
+    }
+}
